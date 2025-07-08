@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <br/>
+        <form id="editForm">
+            <label for="firstname">First name</label>
+            <input type="text" name="firstname" id="fistname"><br/>
+            <label for="lastname">Lastname</label>
+            <input type="lastname" name="lastname" id="lastname"><br/>
+           <label for="mobile">Mobile</label>
+            <input type="mobile" name="mobile" id="mobile"><br/>
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email"><br/>
+            <label for="avatar">Select a file</label>
+            <input type="file" name="avatar" id="avatar"><br/>
+            <br/>
+            <button type="submit" id="submitForm">Submit</button>
+
+            
+         </form>
+
+         <br/><br/>
+         <button id="homeLink" type="button">Home</button>
+         <script src="config.js"></script>
+         <script>
+
+            document.getElementById("subtForm").addEventListener('click',submitForm)
+            document.getElementById("homeLink").addEventListener('click',homeLink)
+
+         function submitForm(e)
+         {
+            e.preventDefault();
+
+            const form =new FormData(document.querySelector('#editForm'));
+            form.append('apiKey', apiKey);
+
+            fetch(rootPath + 'conttroller/insert-contact/',{
+                method: 'POST',
+                headers: {'Accept': ' application/json,  *.*'},
+                body:form
+            })
+            .then(function(response){
+                return response.text();
+
+            })
+            .then(function(data){
+                if(data=="1")
+               
+            {
+                alert("Contact added.");
+                homeLink();
+                //link to the Home Page
+            }
+            else{
+                alert(data);
+                homeLink();
+
+
+                //link to the Home Page
+            }
+            })
+         }
+
+         function homeLink(){
+            window.open("index.html","_self")
+         }
+
+         </script>
+    </body>
+</html>
